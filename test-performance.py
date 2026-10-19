@@ -11,7 +11,7 @@ from urllib.error import URLError, HTTPError
 import json
 
 # CONFIGURAÇÃO - Altere para a URL do seu site
-BASE_URL = "https://SEU-DOMINIO.vercel.app"
+BASE_URL = "https://sistema-igreja-5q1a2.vercel.app/"
 
 # Páginas para testar
 PAGES = [

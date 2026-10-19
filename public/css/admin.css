@@ -5199,3 +5199,43 @@ th {
 .btn-copy i {
   margin-right: 0.25rem;
 }
+
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .admin-premium .stats-grid.indicator-compact-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .admin-premium .stat-card.indicator-compact-card {
+    min-height: 176px;
+    padding: 14px;
+  }
+}
+
+.token-state {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.token-state strong {
+  color: #0f172a;
+}
+
+.token-state code {
+  color: #1d4ed8;
+  overflow-wrap: anywhere;
+}
+
+.token-state-error {
+  border-color: #fecaca;
+  background: #fff7f7;
+}

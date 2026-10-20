@@ -5239,3 +5239,584 @@ th {
   border-color: #fecaca;
   background: #fff7f7;
 }
+
+/* Admin dashboard visual refresh */
+#tela-principal.admin-premium {
+  --sidebar-w: 264px;
+  --admin-ink: #172b4d;
+  --admin-muted: #66758c;
+  --admin-line: #e6ebf2;
+  --admin-surface: #ffffff;
+  --admin-canvas: #f5f7fb;
+  --admin-accent: #176b68;
+  --admin-accent-soft: #e8f4f2;
+  --admin-shadow: 0 8px 24px rgba(23, 43, 77, 0.055);
+  min-height: 100vh;
+  background: var(--admin-canvas);
+  color: var(--admin-ink);
+}
+
+#tela-principal.admin-premium .admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 28px 18px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #123b49 0%, #123b49 56%, #172b4d 100%);
+  box-shadow: 10px 0 28px rgba(23, 43, 77, 0.12);
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+#tela-principal.admin-premium .admin-sidebar::before {
+  display: none;
+}
+
+#tela-principal.admin-premium .sidebar-brand {
+  gap: 12px;
+  padding: 0 4px;
+}
+
+#tela-principal.admin-premium .sidebar-logo {
+  width: 54px;
+  height: 54px;
+  padding: 6px;
+  border-color: rgba(255, 255, 255, 0.18);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+#tela-principal.admin-premium .sidebar-brand strong {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+#tela-principal.admin-premium .sidebar-brand span {
+  margin-top: 3px;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+#tela-principal.admin-premium .sidebar-nav {
+  flex: 1;
+  align-content: start;
+  gap: 6px;
+  margin-top: 0;
+}
+
+#tela-principal.admin-premium .side-link {
+  min-height: 44px;
+  gap: 12px;
+  padding: 0 12px;
+  border-color: transparent;
+  border-radius: 11px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+#tela-principal.admin-premium .side-link i {
+  width: 18px;
+  color: rgba(255, 255, 255, 0.72);
+  text-align: center;
+}
+
+#tela-principal.admin-premium .side-link:hover,
+#tela-principal.admin-premium .side-link.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  transform: translateX(2px);
+}
+
+#tela-principal.admin-premium .side-link.active i {
+  color: #7de0c2;
+}
+
+#tela-principal.admin-premium .side-link.active::before {
+  left: -12px;
+  width: 3px;
+  height: 22px;
+  background: #7de0c2;
+}
+
+#tela-principal.admin-premium .sidebar-footer {
+  position: static;
+  flex: 0 0 auto;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px;
+  border-color: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: none;
+}
+
+#tela-principal.admin-premium header {
+  position: sticky;
+  min-height: 72px;
+  gap: 16px;
+  padding: 12px clamp(18px, 2.5vw, 36px);
+  border-bottom: 1px solid var(--admin-line);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 3px 12px rgba(23, 43, 77, 0.035);
+  backdrop-filter: blur(12px);
+}
+
+#tela-principal.admin-premium .mobile-menu {
+  border-color: var(--admin-line);
+  border-radius: 11px;
+  color: var(--admin-accent);
+}
+
+#tela-principal.admin-premium .admin-actions {
+  gap: 7px;
+}
+
+#tela-principal.admin-premium .header-user {
+  max-width: 220px;
+  overflow: hidden;
+  color: var(--admin-muted);
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#tela-principal.admin-premium .admin-actions .btn {
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: transform 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+#tela-principal.admin-premium .admin-actions .btn:hover {
+  box-shadow: 0 5px 12px rgba(23, 43, 77, 0.1);
+  transform: translateY(-1px);
+}
+
+#tela-principal.admin-premium .admin-actions-group {
+  gap: 6px;
+  padding-left: 8px;
+  border-color: var(--admin-line);
+}
+
+#tela-principal.admin-premium main {
+  width: 100%;
+  max-width: 1640px;
+  padding: clamp(22px, 3vw, 40px) clamp(18px, 3vw, 42px) 48px;
+}
+
+#tela-principal.admin-premium .indicator-compact-section {
+  margin: 0 0 30px;
+}
+
+#tela-principal.admin-premium .indicator-compact-head {
+  margin-bottom: 18px;
+}
+
+#tela-principal.admin-premium .indicator-compact-head h2 {
+  color: var(--admin-ink);
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+#tela-principal.admin-premium .indicator-compact-head p {
+  margin-top: 5px;
+  color: var(--admin-muted);
+  font-size: 0.9rem;
+}
+
+#tela-principal.admin-premium .stats-grid.indicator-compact-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card {
+  min-width: 0;
+  min-height: 174px;
+  gap: 12px;
+  padding: 17px;
+  border: 1px solid var(--admin-line);
+  border-radius: 15px;
+  background: var(--admin-surface);
+  box-shadow: var(--admin-shadow);
+  animation: adminCardIn 360ms ease both;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card:nth-child(2) {
+  animation-delay: 35ms;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card:nth-child(3) {
+  animation-delay: 70ms;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card:nth-child(4) {
+  animation-delay: 105ms;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card:nth-child(5) {
+  animation-delay: 140ms;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card::before {
+  display: none;
+}
+
+#tela-principal.admin-premium .stat-card.indicator-compact-card:hover,
+#tela-principal.admin-premium .stat-card.indicator-compact-card:focus-visible,
+#tela-principal.admin-premium .stat-card.indicator-compact-card.active {
+  border-color: color-mix(in srgb, var(--compact-color) 38%, var(--admin-line));
+  box-shadow: 0 12px 26px rgba(23, 43, 77, 0.1);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+#tela-principal.admin-premium .indicator-compact-copy {
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 10px;
+}
+
+#tela-principal.admin-premium .indicator-compact-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  box-shadow: none;
+}
+
+#tela-principal.admin-premium .indicator-compact-copy h3 {
+  margin: 1px 0 4px;
+  color: var(--admin-ink);
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+#tela-principal.admin-premium .indicator-compact-copy p {
+  color: var(--admin-muted);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+#tela-principal.admin-premium .indicator-compact-main .stat-num {
+  color: var(--admin-ink);
+  font-size: 2rem;
+  font-weight: 750;
+  letter-spacing: -0.045em;
+}
+
+#tela-principal.admin-premium .indicator-compact-main span {
+  color: var(--admin-muted);
+  font-size: 0.67rem;
+  font-weight: 700;
+}
+
+#tela-principal.admin-premium .indicator-compact-note {
+  min-height: 0;
+  color: var(--admin-muted);
+  font-size: 0.74rem;
+}
+
+#tela-principal.admin-premium .members-section-head {
+  align-items: center;
+  gap: 18px;
+  padding: 20px 22px;
+  border: 1px solid var(--admin-line);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: var(--admin-surface);
+}
+
+#tela-principal.admin-premium .members-kicker {
+  margin-bottom: 7px;
+  color: var(--admin-accent);
+  letter-spacing: 0.1em;
+}
+
+#tela-principal.admin-premium .members-section-head h2 {
+  color: var(--admin-ink);
+  font-size: 1.2rem;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+#tela-principal.admin-premium .members-section-head p {
+  color: var(--admin-muted);
+  font-size: 0.84rem;
+}
+
+#tela-principal.admin-premium .members-head-actions {
+  gap: 7px;
+}
+
+#tela-principal.admin-premium .quick-filter {
+  min-height: 36px;
+  padding: 0 11px;
+  border-color: var(--admin-line);
+  color: #52627a;
+  font-size: 0.73rem;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+#tela-principal.admin-premium .quick-filter:hover,
+#tela-principal.admin-premium .quick-filter:focus-visible,
+#tela-principal.admin-premium .quick-filter.active {
+  border-color: #acd7d1;
+  color: #135f5b;
+  background: var(--admin-accent-soft);
+}
+
+#tela-principal.admin-premium .quick-filter.active span {
+  color: #fff;
+  background: var(--admin-accent);
+}
+
+#tela-principal.admin-premium .toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--admin-line);
+  border-bottom: 0;
+  border-radius: 0;
+  background: var(--admin-surface);
+  box-shadow: none;
+}
+
+#tela-principal.admin-premium .search-wrap {
+  flex: 1 1 280px;
+  min-width: min(100%, 240px);
+}
+
+#tela-principal.admin-premium .search-wrap input,
+#tela-principal.admin-premium select.filtro {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid var(--admin-line);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--admin-ink);
+  font-size: 0.83rem;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+#tela-principal.admin-premium .search-wrap input:focus,
+#tela-principal.admin-premium select.filtro:focus {
+  border-color: #68aaa3;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(23, 107, 104, 0.12);
+  outline: none;
+}
+
+#tela-principal.admin-premium .toolbar > select.filtro,
+#tela-principal.admin-premium .toolbar > .btn {
+  flex: 0 1 176px;
+}
+
+#tela-principal.admin-premium .toolbar > .btn {
+  min-height: 42px;
+  border-radius: 10px;
+}
+
+#tela-principal.admin-premium .table-wrap {
+  border: 1px solid var(--admin-line);
+  border-radius: 0 0 16px 16px;
+  background: #fff;
+  box-shadow: var(--admin-shadow);
+}
+
+#tela-principal.admin-premium .table-wrap table {
+  width: 100%;
+}
+
+#tela-principal.admin-premium .table-wrap tbody tr {
+  transition: background-color 140ms ease;
+}
+
+#tela-principal.admin-premium .paginacao {
+  margin-top: 14px;
+}
+
+#tela-principal.admin-premium .metric-detail-panel.open {
+  margin-bottom: 24px;
+  border-color: var(--admin-line);
+  border-radius: 16px;
+  box-shadow: var(--admin-shadow);
+}
+
+#tela-principal.admin-premium .metric-detail-head {
+  padding: 20px 22px;
+  background: #fff;
+}
+
+#tela-principal.admin-premium .metric-detail-head h2 {
+  color: var(--admin-ink);
+}
+
+#tela-principal.admin-premium .metric-detail-body {
+  gap: 16px;
+  padding: 18px 22px 22px;
+}
+
+@keyframes adminCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 1600px) {
+  #tela-principal.admin-premium .stats-grid.indicator-compact-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1280px) {
+  #tela-principal.admin-premium .stats-grid.indicator-compact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #tela-principal.admin-premium .members-section-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #tela-principal.admin-premium .members-head-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  #tela-principal.admin-premium {
+    padding-left: 0;
+  }
+
+  #tela-principal.admin-premium .admin-sidebar {
+    width: min(286px, calc(100vw - 48px));
+    padding-top: 20px;
+  }
+
+  body.sidebar-open::before {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: block;
+    width: auto;
+    height: auto;
+    background: rgba(15, 23, 42, 0.42);
+  }
+
+  #tela-principal.admin-premium header {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  #tela-principal.admin-premium .admin-actions {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+
+  #tela-principal.admin-premium main {
+    padding: 24px 18px 36px;
+  }
+
+  #tela-principal.admin-premium .metric-detail-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  #tela-principal.admin-premium header {
+    gap: 10px;
+  }
+
+  #tela-principal.admin-premium .admin-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+    width: 100%;
+  }
+
+  #tela-principal.admin-premium .admin-actions-group {
+    display: contents;
+  }
+
+  #tela-principal.admin-premium .admin-actions .btn {
+    min-width: 0;
+    min-height: 40px;
+    justify-content: center;
+    padding: 0 8px;
+    white-space: nowrap;
+  }
+
+  #tela-principal.admin-premium .admin-actions #sino-wrap {
+    display: grid;
+    min-height: 40px;
+    place-items: center;
+  }
+
+  #tela-principal.admin-premium main {
+    padding: 22px 14px 30px;
+  }
+
+  #tela-principal.admin-premium .stats-grid.indicator-compact-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  #tela-principal.admin-premium .stat-card.indicator-compact-card {
+    min-height: 150px;
+    padding: 15px;
+  }
+
+  #tela-principal.admin-premium .members-section-head {
+    padding: 17px;
+  }
+
+  #tela-principal.admin-premium .members-head-actions {
+    width: 100%;
+  }
+
+  #tela-principal.admin-premium .quick-filter {
+    flex: 1 1 calc(50% - 7px);
+    justify-content: space-between;
+  }
+
+  #tela-principal.admin-premium .toolbar {
+    padding: 11px;
+  }
+
+  #tela-principal.admin-premium .search-wrap,
+  #tela-principal.admin-premium .toolbar > select.filtro,
+  #tela-principal.admin-premium .toolbar > .btn {
+    flex: 1 1 100%;
+  }
+
+  #tela-principal.admin-premium .metric-detail-head,
+  #tela-principal.admin-premium .metric-detail-body {
+    padding: 16px;
+  }
+
+  #tela-principal.admin-premium .metric-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #tela-principal.admin-premium .stat-card.indicator-compact-card {
+    animation: none;
+    transition: none;
+  }
+}

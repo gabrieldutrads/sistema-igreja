@@ -10,7 +10,7 @@
   --gold: #d97706;
   --danger: #ef4444;
   --success: #16a34a;
-  --sidebar-w: 286px;
+  --sidebar-w: 272px;
   --shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
   --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.06);
 }
@@ -43,20 +43,24 @@ select {
   position: fixed;
   inset: 0 auto 0 0;
   width: var(--sidebar-w);
-  padding: 28px 22px;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 18px;
+  overflow-x: hidden;
+  overflow-y: auto;
   color: #fff;
-  background: linear-gradient(180deg, #0f766e 0%, #1d4ed8 52%, #111827 100%);
-  box-shadow: 24px 0 60px rgba(36, 59, 149, 0.2);
+  background:
+    radial-gradient(ellipse at 0 0, rgba(31, 133, 132, 0.24), transparent 34%),
+    linear-gradient(165deg, #123b49 0%, #102f40 54%, #14243b 100%);
+  box-shadow: 12px 0 32px rgba(18, 43, 61, 0.14);
+  scrollbar-color: rgba(255, 255, 255, 0.24) transparent;
   z-index: 30;
 }
 
 .admin-page-sidebar::before {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 22px;
-  pointer-events: none;
+  content: none;
 }
 
 .sidebar-brand,
@@ -69,17 +73,20 @@ select {
 .sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
+  padding: 0 4px;
 }
 
 .sidebar-brand img {
-  width: 58px;
-  height: 58px;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
-  padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.14);
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.09);
 }
 
 .sidebar-brand strong,
@@ -88,52 +95,91 @@ select {
 }
 
 .sidebar-brand strong {
-  font-size: 1.05rem;
+  overflow: hidden;
+  font-size: 0.98rem;
   font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar-brand span {
   margin-top: 4px;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.82rem;
-  font-weight: 600;
+  color: rgba(222, 241, 245, 0.72);
+  font-size: 0.76rem;
+  font-weight: 500;
 }
 
 .sidebar-nav {
   display: grid;
-  gap: 10px;
-  margin-top: 36px;
+  gap: 5px;
+  align-content: start;
+  flex: 1;
+  margin-top: 34px;
 }
 
 .side-link {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 46px;
-  padding: 0 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  color: rgba(255, 255, 255, 0.82);
+  gap: 11px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  color: rgba(239, 247, 250, 0.76);
+  font-size: 0.88rem;
+  font-weight: 600;
   text-decoration: none;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
-.side-link:hover,
-.side-link.active {
+.side-link i {
+  flex: 0 0 19px;
+  color: rgba(211, 231, 236, 0.72);
+  text-align: center;
+  transition: color 160ms ease;
+}
+
+.side-link:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.17);
-  transform: translateX(2px);
+  background: rgba(255, 255, 255, 0.075);
+  transform: translateX(1px);
+}
+
+.side-link.active {
+  border-color: rgba(125, 224, 194, 0.12);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.side-link.active::before {
+  position: absolute;
+  inset: 9px auto 9px 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #7de0c2;
+  content: "";
+}
+
+.side-link.active i {
+  color: #7de0c2;
+}
+
+.side-link:focus-visible {
+  outline: 2px solid #9ae8d3;
+  outline-offset: 2px;
 }
 
 .sidebar-footer {
-  position: absolute;
-  right: 22px;
-  bottom: 28px;
-  left: 22px;
-  padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.12);
+  position: static;
+  display: grid;
+  gap: 4px;
+  margin-top: auto;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .sidebar-footer strong,
@@ -142,8 +188,9 @@ select {
 }
 
 .sidebar-footer small {
-  margin-top: 4px;
-  color: rgba(255, 255, 255, 0.68);
+  overflow-wrap: anywhere;
+  color: rgba(222, 241, 245, 0.66);
+  font-size: 0.76rem;
 }
 
 .admin-page-main {
@@ -693,14 +740,45 @@ body[data-page="indicadores"] .chart-wrap {
   }
 
   .admin-page-sidebar {
-    position: static;
+    position: sticky;
+    inset: 0 0 auto;
     width: auto;
-    border-radius: 0 0 22px 22px;
+    height: auto;
+    display: grid;
+    grid-template-columns: minmax(176px, 0.75fr) minmax(0, 2fr);
+    align-items: center;
+    gap: 12px 18px;
+    padding: 12px 18px;
+    overflow: visible;
+    border-radius: 0;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    gap: 4px;
+    min-width: 0;
+    margin-top: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+
+  .side-link {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 10px;
+    font-size: 0.82rem;
   }
 
   .sidebar-footer {
     position: static;
-    margin-top: 18px;
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 0;
+    padding: 8px 10px;
   }
 
   .grid,
@@ -715,6 +793,63 @@ body[data-page="indicadores"] .chart-wrap {
 }
 
 @media (max-width: 620px) {
+  .admin-page-sidebar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .sidebar-brand {
+    gap: 10px;
+  }
+
+  .sidebar-brand img {
+    flex-basis: 42px;
+    width: 42px;
+    height: 42px;
+    padding: 5px;
+    border-radius: 12px;
+  }
+
+  .sidebar-brand strong {
+    font-size: 0.9rem;
+  }
+
+  .sidebar-brand span {
+    margin-top: 2px;
+  }
+
+  .sidebar-nav {
+    margin: 0 -2px;
+    padding: 2px;
+    scrollbar-width: none;
+  }
+
+  .sidebar-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .side-link {
+    min-height: 38px;
+    gap: 8px;
+    padding: 0 10px;
+    font-size: 0.78rem;
+  }
+
+  .side-link i {
+    flex-basis: 16px;
+  }
+
+  .sidebar-footer {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+  }
+
+  .sidebar-footer small {
+    max-width: 60%;
+    text-align: right;
+  }
+
   .page-header,
   .panel-head {
     display: grid;

@@ -262,7 +262,6 @@
   }
 
   function renderSettingsPage() {
-    setStats();
     loadSettings();
   }
 
@@ -388,15 +387,38 @@
       return;
     }
 
+    if (page === 'configuracoes') {
+      renderSettingsPage();
+      return;
+    }
+
     const { data, error } = await state.db.from('membros').select('*').order('nome');
     if (error) {
-      toast('Erro ao carregar dados.');
+      console.error('Erro ao carregar membros da página administrativa:', error);
+      const message = error.code === '42501'
+        ? 'Sem permissão para ler membros. Execute docs/sql/CORRIGIR_401_MEMBROS_ADMIN.sql no SQL Editor do Supabase.'
+        : `Não foi possível carregar os membros (${error.code || 'erro'}): ${error.message || 'verifique a conexão e as permissões do Supabase.'}`;
+      state.membros = [];
+      if (state.chart) {
+        state.chart.destroy();
+        state.chart = null;
+      }
+      ['total', 'membros', 'congregados', 'ativos', 'mes', 'aniversariantes'].forEach(key => setText(`stat-${key}`, '—'));
+      toast(message);
+      if (page === 'relatorios') {
+        const tbody = $('report-preview');
+        if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="load-error">${safeText(message)}</td></tr>`;
+      }
+      if (page === 'indicadores') {
+        setText('indicator-title', 'Dados indisponíveis');
+        const summary = $('indicator-summary');
+        if (summary) summary.innerHTML = `<li class="load-error">${safeText(message)}</li>`;
+      }
       return;
     }
     state.membros = data || [];
     if (page === 'relatorios') renderReportsPage();
     if (page === 'indicadores') renderIndicatorsPage();
-    if (page === 'configuracoes') renderSettingsPage();
   }
 
   async function validateAccess() {
@@ -420,7 +442,10 @@
   async function init() {
     if (!(await validateAccess())) return;
     await loadData();
-    $('refresh-btn')?.addEventListener('click', loadData);
+    $('refresh-btn')?.addEventListener('click', () => {
+      if (page === 'configuracoes') renderSettingsPage();
+      else loadData();
+    });
     $('logout-btn')?.addEventListener('click', async () => {
       await state.db.auth.signOut();
       window.location.href = 'admin.html';

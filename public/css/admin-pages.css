@@ -155,12 +155,25 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  min-height: 72px;
+  min-height: 76px;
   padding: 12px 24px;
   border-bottom: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.86);
   box-shadow: 0 12px 34px rgba(15, 23, 42, 0.04);
   backdrop-filter: blur(18px);
+}
+
+.page-header-brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.page-header-brand img {
+  display: block;
+  width: 104px;
+  max-height: 52px;
+  object-fit: contain;
 }
 
 .page-title span {
@@ -386,6 +399,26 @@ tbody tr:hover {
   text-align: center;
 }
 
+.load-error {
+  color: #b91c1c;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+td.load-error {
+  padding: 18px;
+  background: #fef2f2;
+  text-align: left;
+}
+
+.summary-list .load-error {
+  display: block;
+  padding: 12px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: #fef2f2;
+}
+
 .config-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -555,6 +588,10 @@ body[data-page="indicadores"] .page-header {
   gap: 12px;
 }
 
+body[data-page="indicadores"] .page-header-brand img {
+  max-height: 40px;
+}
+
 body[data-page="indicadores"] .page-title span {
   font-size: 0.62rem;
 }
@@ -681,6 +718,11 @@ body[data-page="indicadores"] .chart-wrap {
   .page-header,
   .panel-head {
     display: grid;
+  }
+
+  .page-header-brand img {
+    width: 88px;
+    max-height: 44px;
   }
 
   .page-content {

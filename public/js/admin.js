@@ -1184,12 +1184,37 @@
   }
 
   async function carregarLista() {
-    document.getElementById('corpo-lista').innerHTML =
+    const tableBody = document.getElementById('corpo-lista');
+    if (tableBody) tableBody.innerHTML =
       `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:2.5rem;"><span class="loading" style="border-color:rgba(201,168,76,0.3);border-top-color:var(--gold);"></span><span style="margin-left:10px;">Carregando…</span></td></tr>`;
 
     const { data, error } = await db.from('membros').select('*').order('nome');
-    if (error) { toast('❌ Erro ao carregar.'); return; }
+    if (error) {
+      console.error('Erro ao carregar membros do painel:', error);
+      const message = error.code === '42501'
+        ? 'Sem permissão para ler membros. Execute docs/sql/CORRIGIR_401_MEMBROS_ADMIN.sql no Supabase.'
+        : `Falha ao carregar membros (${error.code || 'erro'}): ${error.message || 'verifique conexão e permissões.'}`;
+      membrosCache = [];
+      if (tableBody) {
+        tableBody.replaceChildren();
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 8;
+        cell.className = 'load-error';
+        cell.textContent = message;
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+      }
+      const cardList = document.getElementById('members-card-list');
+      if (cardList) {
+        cardList.textContent = message;
+        cardList.classList.add('load-error');
+      }
+      toast(`❌ ${message}`);
+      return;
+    }
     membrosCache = data || [];
+    document.getElementById('members-card-list')?.classList.remove('load-error');
     primeiraLeitura = false;
 
     // Atualiza painel do “último cadastro”

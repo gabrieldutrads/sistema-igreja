@@ -5820,3 +5820,22 @@ th {
     transition: none;
   }
 }
+
+.load-error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+#corpo-lista .load-error {
+  padding: 18px;
+  background: #fef2f2;
+  text-align: left;
+}
+
+#members-card-list.load-error {
+  padding: 16px;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  background: #fef2f2;
+}

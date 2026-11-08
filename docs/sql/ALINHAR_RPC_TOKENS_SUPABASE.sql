@@ -5,7 +5,7 @@
 
 DROP FUNCTION IF EXISTS public.list_active_tokens();
 DROP FUNCTION IF EXISTS public.list_registration_tokens(UUID, BOOLEAN);
-DROP FUNCTION IF EXISTS public.generate_registration_token(UUID, TEXT, TEXT, TEXT, INTEGER);
+DROP FUNCTION IF EXISTS public.generate_registration_token(UUID, INTEGER, TEXT, TEXT, TEXT);
 DROP FUNCTION IF EXISTS public.generate_registration_token(UUID, TEXT);
 DROP FUNCTION IF EXISTS public.generate_registration_token(INTEGER, TEXT);
 DROP FUNCTION IF EXISTS public.revoke_registration_token(UUID, UUID);
@@ -31,7 +31,7 @@ $$;
 REVOKE ALL ON TABLE public.registration_tokens FROM PUBLIC, anon, authenticated;
 
 CREATE FUNCTION public.generate_registration_token(
-  p_duration_hours INTEGER DEFAULT 2,
+  p_duration_minutes INTEGER DEFAULT 30,
   p_notes TEXT DEFAULT NULL,
   p_recipient_name TEXT DEFAULT NULL,
   p_recipient_contact TEXT DEFAULT NULL
@@ -56,8 +56,8 @@ BEGIN
     RAISE EXCEPTION 'Usuário não autenticado';
   END IF;
 
-  IF p_duration_hours IS NULL OR p_duration_hours < 1 OR p_duration_hours > 168 THEN
-    RAISE EXCEPTION 'A duração do link deve estar entre 1 e 168 horas';
+  IF p_duration_minutes IS NULL OR p_duration_minutes < 1 OR p_duration_minutes > 10080 THEN
+    RAISE EXCEPTION 'A duração do link deve estar entre 1 e 10080 minutos';
   END IF;
 
   SELECT p.role, u.email
@@ -72,7 +72,7 @@ BEGIN
 
   v_token := replace(gen_random_uuid()::TEXT, '-', '')
     || replace(gen_random_uuid()::TEXT, '-', '');
-  v_expires_at := NOW() + make_interval(hours => p_duration_hours);
+  v_expires_at := NOW() + make_interval(mins => p_duration_minutes);
 
   INSERT INTO public.registration_tokens (
     token,

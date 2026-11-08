@@ -816,9 +816,7 @@
 
     } catch (error) {
       console.error('Erro ao gerar link:', error);
-      toast('❌ Erro ao abrir ficha: ' + (error.message || 'Tente novamente'));
-      // Fallback: abre sem token
-      window.open('cadastro.html', '_blank', 'noopener,noreferrer');
+      toast('❌ Não foi possível abrir a ficha: ' + erroTokenParaUsuario(error));
     }
   }
 
@@ -1186,12 +1184,37 @@
   }
 
   async function carregarLista() {
-    document.getElementById('corpo-lista').innerHTML =
+    const tableBody = document.getElementById('corpo-lista');
+    if (tableBody) tableBody.innerHTML =
       `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:2.5rem;"><span class="loading" style="border-color:rgba(201,168,76,0.3);border-top-color:var(--gold);"></span><span style="margin-left:10px;">Carregando…</span></td></tr>`;
 
     const { data, error } = await db.from('membros').select('*').order('nome');
-    if (error) { toast('❌ Erro ao carregar.'); return; }
+    if (error) {
+      console.error('Erro ao carregar membros do painel:', error);
+      const message = error.code === '42501'
+        ? 'Sem permissão para ler membros. Execute docs/sql/CORRIGIR_401_MEMBROS_ADMIN.sql no Supabase.'
+        : `Falha ao carregar membros (${error.code || 'erro'}): ${error.message || 'verifique conexão e permissões.'}`;
+      membrosCache = [];
+      if (tableBody) {
+        tableBody.replaceChildren();
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 8;
+        cell.className = 'load-error';
+        cell.textContent = message;
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+      }
+      const cardList = document.getElementById('members-card-list');
+      if (cardList) {
+        cardList.textContent = message;
+        cardList.classList.add('load-error');
+      }
+      toast(`❌ ${message}`);
+      return;
+    }
     membrosCache = data || [];
+    document.getElementById('members-card-list')?.classList.remove('load-error');
     primeiraLeitura = false;
 
     // Atualiza painel do “último cadastro”
@@ -3278,10 +3301,20 @@
 
   let tokensAtivos = [];
   let updateTokensInterval = null;
+  let tokensRequestInProgress = false;
   let filtroAtivo = 'todos'; // 'todos', 'ativos', 'usados', 'expirados'
   let tokensCache = null;
   let ultimaAtualizacao = 0;
+  let tokensRpcUnavailable = false;
   const CACHE_TIMEOUT = 30000; // 30 segundos
+  const tokensSetupMessage = 'Execute docs/sql/ALINHAR_RPC_TOKENS_SUPABASE.sql no SQL Editor do Supabase.';
+
+  function erroTokenParaUsuario(error) {
+    if (error?.code === 'PGRST202') {
+      return `As funções de links não estão instaladas neste Supabase. ${tokensSetupMessage}`;
+    }
+    return error?.message || 'Tente novamente.';
+  }
 
   function abrirGeradorLinks() {
     document.getElementById('links-overlay').classList.add('open');
@@ -3324,58 +3357,96 @@
 
     } catch (error) {
       console.error('Erro ao gerar link:', error);
-      toast('❌ Erro ao gerar link: ' + (error.message || 'Tente novamente'));
+      toast('❌ Erro ao gerar link: ' + erroTokenParaUsuario(error));
     }
   }
 
   window.gerarNovoLink = gerarNovoLink;
 
   async function carregarTokens(forcarReload = false) {
+    const container = document.getElementById('links-ativos-lista');
+
+    if (tokensRequestInProgress) return;
+
+    if (tokensRpcUnavailable && !forcarReload) {
+      mostrarErroConfiguracaoTokens();
+      return;
+    }
+
+    if (forcarReload) tokensRpcUnavailable = false;
+    tokensRequestInProgress = true;
+
     try {
       // Usar cache se disponível e não expirado
       const agora = Date.now();
       if (!forcarReload && tokensCache && (agora - ultimaAtualizacao < CACHE_TIMEOUT)) {
-        console.log('📦 Usando cache de tokens');
         tokensAtivos = tokensCache;
         renderTokens();
         renderStatsTokens();
         return;
       }
 
-      console.log('🔄 Buscando tokens do servidor...');
+      if (container) {
+        container.innerHTML = '<div class="token-state" role="status">Carregando links...</div>';
+      }
+
       const { data, error } = await db.rpc('list_active_tokens');
-      
+
       if (error) throw error;
 
       tokensAtivos = data || [];
       tokensCache = tokensAtivos;
       ultimaAtualizacao = agora;
-      
+
       renderTokens();
       renderStatsTokens();
 
     } catch (error) {
-      // Detecta erro de rede e para o intervalo
-      if (error.message && error.message.includes('Failed to fetch')) {
-        console.warn('⚠️ Sem conexão com internet. Parando atualizações automáticas.');
-        if (updateTokensInterval) {
-          clearInterval(updateTokensInterval);
-          updateTokensInterval = null;
-        }
-        // Usar cache se disponível
-        if (tokensCache) {
+      if (error?.code === 'PGRST202' || /could not find the function public\.list_active_tokens/i.test(error?.message || '')) {
+        tokensRpcUnavailable = true;
+        console.warn('RPC list_active_tokens não encontrada. Execute docs/sql/ALINHAR_RPC_TOKENS_SUPABASE.sql no Supabase.');
+        mostrarErroConfiguracaoTokens();
+        return;
+      }
+
+      // Erros de rede não devem gerar notificações repetidas dentro do modal.
+      if (error?.message?.includes('Failed to fetch')) {
+        console.warn('Sem conexão com o servidor de tokens.');
+        // Preserva os dados antigos, mas informa que a lista pode estar desatualizada.
+        if (tokensCache !== null) {
           tokensAtivos = tokensCache;
           renderTokens();
           renderStatsTokens();
+          container?.insertAdjacentHTML('afterbegin',
+            '<div class="token-state" role="status">Sem conexão. Exibindo os últimos dados carregados.</div>');
+        } else if (container) {
+          container.innerHTML = '<div class="token-state token-state-error" role="alert">Sem conexão com o servidor. Verifique sua internet e tente novamente.</div>';
         }
-        // Não exibe toast repetidamente
         return;
       }
       
       console.error('Erro ao carregar tokens:', error);
-      toast('❌ Erro ao carregar tokens');
+      if (container) {
+        container.innerHTML = '<div class="token-state token-state-error" role="alert">Não foi possível carregar os links. Verifique sua sessão e as permissões do usuário.</div>';
+      }
+    } finally {
+      tokensRequestInProgress = false;
     }
   }
+
+  function mostrarErroConfiguracaoTokens() {
+    const container = document.getElementById('links-ativos-lista');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="token-state token-state-error" role="alert">
+        <strong>Os recursos de links ainda não foram instalados neste Supabase.</strong>
+        <span>Abra o SQL Editor do projeto e execute <code>docs/sql/ALINHAR_RPC_TOKENS_SUPABASE.sql</code>.</span>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="window.carregarTokens(true)">Verificar novamente</button>
+      </div>`;
+  }
+
+  window.carregarTokens = carregarTokens;
 
   function renderTokens() {
     const container = document.getElementById('links-ativos-lista');
@@ -3477,8 +3548,9 @@
         if (segundos < 600) {
           el.style.color = '#dc2626';
         }
-      } else {
+      } else if (el.dataset.reloadRequested !== 'true') {
         // Expirou - recarrega lista (forçando reload)
+        el.dataset.reloadRequested = 'true';
         carregarTokens(true);
       }
     });
@@ -3530,11 +3602,15 @@
     if (!confirm('Deseja mesmo revogar este link? Ele não poderá mais ser usado.')) return;
 
     try {
-      const { error } = await db.rpc('revoke_registration_token', {
-        p_token: tokenString
+      const token = tokensAtivos.find(item => item.token === tokenString);
+      if (!token) throw new Error('O link não está mais na lista. Atualize e tente novamente.');
+
+      const { data, error } = await db.rpc('revoke_registration_token', {
+        p_token_id: token.id
       });
 
       if (error) throw error;
+      if (!data) throw new Error('O link já foi usado, expirou ou não pode ser revogado.');
 
       toast('✅ Link revogado');
       
@@ -3543,7 +3619,7 @@
 
     } catch (error) {
       console.error('Erro ao revogar:', error);
-      toast('❌ Erro ao revogar: ' + (error.message || 'Tente novamente'));
+      toast('❌ Erro ao revogar: ' + erroTokenParaUsuario(error));
     }
   }
 

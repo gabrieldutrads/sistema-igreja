@@ -14,17 +14,10 @@ O sistema usa tokens temporários seguros para controlar o acesso ao cadastro de
 
 ### 1. Execute o SQL no Supabase
 
-1. Acesse o **SQL Editor** do Supabase
-2. Cole o conteúdo do arquivo `GERAR_TOKEN_CADASTRO.sql`
-3. **IMPORTANTE**: Altere a URL base nas funções:
-   ```sql
-   v_base_url TEXT := 'https://seu-dominio.vercel.app';
-   ```
-   Substitua por seu domínio real, exemplo:
-   ```sql
-   v_base_url TEXT := 'https://igreja-sistema.vercel.app';
-   ```
-4. Execute o script (clique em "Run")
+1. Abra o **SQL Editor** do projeto Supabase usado pelo site.
+2. Execute `docs/sql/2_registration-tokens-SAFE.sql` para criar a tabela e as funções-base.
+3. Execute `docs/sql/ALINHAR_RPC_TOKENS_SUPABASE.sql` para instalar as funções RPC esperadas pelas telas atuais.
+4. Não é necessário editar URL no SQL: o painel monta o link usando o domínio em que está aberto.
 
 ### 2. Integre com a Interface Admin (Opcional)
 

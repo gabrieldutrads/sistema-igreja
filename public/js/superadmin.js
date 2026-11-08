@@ -60,11 +60,7 @@
     btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Gerando...';
 
     try {
-      const { data: { session } } = await db.auth.getSession();
-      if (!session) throw new Error('Sessão expirada');
-
       const { data, error } = await db.rpc('generate_registration_token', {
-        p_user_id: session.user.id,
         p_notes: notes || null,
         p_recipient_name: recipientName,
         p_recipient_contact: recipientContact,
@@ -194,11 +190,7 @@
 
   async function carregarTokens() {
     try {
-      const { data: { session } } = await db.auth.getSession();
-      if (!session) return;
-
       const { data, error } = await db.rpc('list_registration_tokens', {
-        p_user_id: session.user.id,
         p_show_all: true
       });
 
@@ -303,15 +295,12 @@
     if (!confirm('Deseja realmente revogar este link?')) return;
 
     try {
-      const { data: { session } } = await db.auth.getSession();
-      if (!session) throw new Error('Sessão expirada');
-
       const { data, error } = await db.rpc('revoke_registration_token', {
-        p_user_id: session.user.id,
         p_token_id: tokenId
       });
 
       if (error) throw error;
+      if (!data) throw new Error('O link já foi usado, expirou ou não pode ser revogado.');
 
       toast('✅ Link revogado');
       await carregarTokens();

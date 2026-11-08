@@ -1,14 +1,16 @@
 // Configurações globais do sistema
-// As variáveis são injetadas em tempo de build (Vite/Vercel) ou carregadas do .env.local em desenvolvimento
+// Para produção: configure as variáveis no Vercel e use um build step (Vite)
+// Para desenvolvimento local: crie config.local.js (gitignored) ou edite este arquivo
+
 window.CONFIG = {
-  SUPABASE_URL: import.meta?.env?.VITE_SUPABASE_URL || "https://vclqdzvirnafwplivlfc.supabase.co",
-  SUPABASE_KEY: import.meta?.env?.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaXhxZ2ttY2phYmJ6aWRhZGVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjE1NjAsImV4cCI6MjA5ODg5NzU2MH0.JEiUSKtP5-Gs4y-oo44NEvFnmjnVyoEfRYJhRcwuNkA",
-  PRIVACY_POLICY_VERSION: import.meta?.env?.VITE_PRIVACY_POLICY_VERSION || "2026-07-15",
-  APP_REGISTRATION_BASE_URL: import.meta?.env?.VITE_APP_REGISTRATION_BASE_URL || window.location.origin
+  // Substitua pelos valores da sua instância Supabase em produção
+  SUPABASE_URL: "https://vclqdzvirnafwplivlfc.supabase.co",
+  SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjbHFkenZpcm5hZndwbGl2bGZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3ODkwMDAsImV4cCI6MjA3MjM2NTAwMH0.anon-key-placeholder",
+  PRIVACY_POLICY_VERSION: "2026-07-15",
+  APP_REGISTRATION_BASE_URL: window.location.origin
 };
 
-// Validação em desenvolvimento
-if (typeof window !== 'undefined' && window.location.hostname === 'localhost' &&
-    (!import.meta?.env?.VITE_SUPABASE_URL || !import.meta?.env?.VITE_SUPABASE_ANON_KEY)) {
-  console.warn('⚠️ Config: Variáveis de ambiente VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY não definidas. Usando valores padrão (apenas para desenvolvimento).');
+// Tenta carregar config.local.js se existir (desenvolvimento)
+if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+  console.info('🔧 Modo desenvolvimento: configure config.local.js ou edite este arquivo com suas credenciais Supabase');
 }

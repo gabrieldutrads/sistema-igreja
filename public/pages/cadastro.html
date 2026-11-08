@@ -25,12 +25,9 @@
     <!-- SUCESSO -->
     <div id="tela-sucesso">
       <div class="success-circle">✝</div>
-      <div class="success-titulo">Bem-vindo à família!</div>
-      <div class="success-sub">Seu cadastro foi recebido com sucesso. O pastor
-        receberá suas informações em breve.</div>
-      <div
-        class="success-versiculo">"Porque onde estiverem dois ou três reunidos em meu nome, ali estou no meio deles."
-        — Mt 18:20</div>
+      <div class="success-titulo">Cadastro realizado!</div>
+      <div class="success-sub">Seu cadastro foi recebido com sucesso. A secretaria receberá suas informações em breve.</div>
+      <div class="success-versiculo">"Porque onde estiverem dois ou três reunidos em meu nome, ali estou no meio deles." — Mt 18:20</div>
       <button class="btn-novo" onclick="novoCadastro()">+ Novo Cadastro</button>
     </div>
 
@@ -38,28 +35,15 @@
     <div id="app">
 
       <!-- HERO -->
-      <aside class="hero" aria-label="Navegação do cadastro">
+      <aside class="hero" aria-label="Identidade da igreja">
         <div class="hero-shimmer"></div>
         <img src="../assets/images-removebg-preview.png" alt="Logo AD Bela-Vista"
           class="hero-logo"
           onerror="this.style.display='none';document.getElementById('hero-fallback').style.display='block'">
+        <div id="hero-fallback" style="display:none;font-size:3rem;">✝</div>
         <h1>AD Bela-Vista</h1>
         <div class="hero-sub">Igreja AD Bela-Vista</div>
-        <div class="hero-address"><i class="fa-solid fa-location-dot"
-            style="color: #ef4444;  "></i> Rua Frei Lauro, 44 · Ponte do Imaruim
-          · Palhoça - SC</div>
-        <nav class="side-nav" aria-label="Etapas do formulário">
-          <a href="#form-cadastro" class="side-link active"><i class="fa-solid fa-user"></i><span>Dados pessoais</span></a>
-          <a href="#endereco" class="side-link"><i class="fa-solid fa-address-book"></i><span>Contato</span></a>
-          <a href="#box-certidao-nasc" class="side-link"><i class="fa-solid fa-file-shield"></i><span>Documentos</span></a>
-          <a href="#forma_recebimento" class="side-link"><i class="fa-solid fa-church"></i><span>Igreja</span></a>
-          <a href="#canvas-assinatura" class="side-link"><i class="fa-solid fa-signature"></i><span>Assinatura</span></a>
-        </nav>
-        <div class="hero-divider"></div>
-        <a class="manual-link" href="suporte.html">
-          <i class="fa-solid fa-book-open"></i>
-          <span>Manual do sistema</span>
-        </a>
+        <div class="hero-address"><i class="fa-solid fa-location-dot" style="color: #ef4444;"></i> Rua Frei Lauro, 44 · Ponte do Imaruim · Palhoça - SC</div>
       </aside>
 
       <section id="tela-privacidade-cadastro" class="cadastro-start">
@@ -67,7 +51,7 @@
           <div class="cadastro-start-icon"><i class="fa-solid fa-shield-halved"></i></div>
           <span class="privacy-start-kicker">Privacidade dos dados</span>
           <h2>Antes de preencher a ficha</h2>
-          <p>Conheça como seus dados serão tratados antes de iniciar. O aceite obrigatório será solicitado somente na etapa final.</p>
+          <p>Conheça como seus dados serão tratados antes de iniciar. O aceite obrigatório será solicitado na etapa final.</p>
           <div class="cadastro-privacy-note">
             <i class="fa-solid fa-lock"></i>
             <span>As informações preenchidas serão usadas somente para cadastro, secretaria e acompanhamento pastoral.</span>
@@ -83,675 +67,53 @@
         </div>
       </section>
 
-      <section id="tela-escolha-cadastro" class="cadastro-start cadastro-flow-hidden">
-        <div class="cadastro-start-card">
-          <div class="cadastro-start-icon"><i class="fa-solid fa-clipboard-list"></i></div>
-          <h2>Cadastro da igreja</h2>
-          <p>Escolha como deseja preencher sua ficha.</p>
-          <div class="cadastro-privacy-note">
-            <i class="fa-solid fa-shield-halved"></i>
-            <span>Seus dados serão usados pela secretaria e pelo acompanhamento pastoral da igreja.</span>
-          </div>
-          <div class="cadastro-choice-grid">
-            <button type="button" class="cadastro-choice-btn"
-              onclick="escolherTipoCadastro('Membro')">
-              <i class="fa-solid fa-users-line"></i>
-              Membro
-            </button>
-            <button type="button" class="cadastro-choice-btn"
-              onclick="escolherTipoCadastro('Congregado')">
-              <i class="fa-solid fa-church"></i>
-              Congregado
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROGRESSO -->
-      <header class="progress-wrap cadastro-flow-hidden">
-        <div class="header-copy">
-          <span class="eyebrow">Cadastro de membro</span>
-          <h2>Cadastro de Membro</h2>
-          <p>Preencha as informações principais para manter a ficha da igreja atualizada.</p>
-        </div>
-        <div class="header-actions">
-          <div class="avatar" aria-label="Usuario secretaria">AD</div>
-        </div>
-        <div class="privacy-ticker" aria-label="Aviso de privacidade e seguranca">
-          <div class="privacy-track">
-            <span><i class="fa-solid fa-shield-halved"></i> Seus dados são guardados com seguranca e usados somente para o cadastro da igreja.</span>
-            <span><i class="fa-solid fa-lock"></i> As informações enviadas ficam protegidas no sistema da secretaria.</span>
-            <span><i class="fa-solid fa-user-shield"></i> Este site utiliza conexão segura e trata seus dados com responsabilidade.</span>
-            <span><i class="fa-solid fa-shield-halved"></i> Seus dados são guardados com seguranca e usados somente para o cadastro da igreja.</span>
-          </div>
-        </div>
-        <div class="stepper" aria-label="Progresso das etapas">
-          <div class="step active"><i class="fa-solid fa-user"></i><span>Dados pessoais</span></div>
-          <div class="step"><i class="fa-solid fa-phone"></i><span>Contato</span></div>
-          <div class="step"><i class="fa-solid fa-file-lines"></i><span>Documentos</span></div>
-          <div class="step"><i class="fa-solid fa-church"></i><span>Igreja</span></div>
-          <div class="step"><i class="fa-solid fa-signature"></i><span>Assinatura</span></div>
-        </div>
-        <div class="progress-meter">
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill"></div>
-        </div>
-        <span class="progress-label" id="progress-label">Preencha o
-          formulário</span>
-        <span class="progress-pct" id="progress-pct"></span>
-        </div>
-      </header>
-
       <main id="cadastro-formulario" class="cadastro-flow-hidden">
-        <div id="cadastro-bloqueado-overlay" class="cadastro-bloqueio" style="display:none;">
-          <div class="cadastro-bloqueio-card">
-            <div class="cadastro-bloqueio-title">Escolha o tipo</div>
-            <div class="cadastro-bloqueio-sub">Selecione se é <b>Membro</b> ou <b>Congregado</b> para liberar o formulário.</div>
-            <div class="cadastro-bloqueio-actions">
-              <button type="button" class="btn btn-gold" onclick="document.getElementById('tela-escolha-cadastro').scrollIntoView({ behavior: 'smooth', block: 'start' });">Ir para a escolha</button>
+        <form id="form-cadastro" onsubmit="event.preventDefault(); return false;">
+
+          <!-- DADOS PESSOAIS SIMPLIFICADOS -->
+          <div class="section-card">
+            <div class="section-title">
+              <div class="icon-wrap"><i class="fa-solid fa-user"></i></div>Dados Cadastrais
             </div>
-          </div>
-        </div>
-        <form id="form-cadastro" onsubmit="event.preventDefault(); return false;" oninput="return false;" style="pointer-events:auto;">
 
-        <!-- TIPO -->
-        <div class="tipo-toggle">
-          <button class="tipo-btn" id="btn-membro"
-            onclick="setTipo('Membro')"><i class="fa-solid fa-users-line"></i>
-            Membro</button>
-          <button class="tipo-btn" id="btn-congregado"
-            onclick="setTipo('Congregado')"><i class="fa-solid fa-church"></i>
-            Congregado</button>
-        </div>
-        <input type="hidden" id="tipo_cadastro" value="">
+            <label class="field-label">Nome Completo <span class="req">*</span></label>
+            <input type="text" id="nome" placeholder="Seu nome completo"
+              oninput="bloquearNumeros(this); validarNome(this)"
+              autocomplete="name" required>
 
-        <!-- FOTOS PESSOAIS -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap"><i class="fa-solid fa-camera"></i></div>Fotos
-            de Identificação
-            <div class="section-check">✓</div>
-          </div>
-          <div class="foto-grid">
-            <div class="foto-box" id="box-foto-membro">
-              <div class="foto-check">✓</div>
-              <div class="foto-label-title">Foto do Membro</div>
-              <img id="prev-foto-membro" class="foto-preview-round"
-                style="display:none;">
-              <div id="ph-foto-membro">
-                <span class="foto-placeholder-icon"><i
-                    class="fa-solid fa-user"></i></span>
-                <div class="foto-placeholder-text">Foto 3×4 recente</div>
-              </div>
-              <div class="foto-btns">
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-foto-membro').click()">
-                  Arquivo</button>
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-cam-membro').click()">📷
-                  Câmera</button>
-              </div>
-              <input type="file" id="inp-foto-membro" accept="image/*"
-                style="display:none"
-                onchange="previewFoto(this,'prev-foto-membro','ph-foto-membro','box-foto-membro','round')">
-              <input type="file" id="inp-cam-membro" accept="image/*"
-                capture="user" style="display:none"
-                onchange="previewFoto(this,'prev-foto-membro','ph-foto-membro','box-foto-membro','round')">
+            <label class="field-label">Telefone / WhatsApp <span class="req">*</span></label>
+            <input type="tel" id="celular" placeholder="(48) 00000-0000"
+              oninput="maskPhone(this)"
+              onblur="validarTelefone(this,'hint-celular',true)"
+              inputmode="tel" required>
+            <div class="hint" id="hint-celular"></div>
+
+            <!-- Batismo com Espírito Santo -->
+            <label class="field-label" style="margin-top:1.5rem;">Você é batizado com o Espírito Santo? <span class="req">*</span></label>
+            <div class="radio-group" style="margin-top:0.5rem;">
+              <label class="radio-option">
+                <input type="radio" name="batismo_espirito_santo" value="sim" required>
+                <span class="radio-custom"></span>
+                <span class="radio-text">Sim</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="batismo_espirito_santo" value="nao">
+                <span class="radio-custom"></span>
+                <span class="radio-text">Não</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="batismo_espirito_santo" value="prefiro_nao_informar" checked>
+                <span class="radio-custom"></span>
+                <span class="radio-text">Prefiro não informar</span>
+              </label>
             </div>
-            <div class="foto-box" id="box-foto-doc">
-              <div class="foto-check">✓</div>
-              <div class="foto-label-title">Foto do Documento <span
-                  class="foto-opc-badge">NACIONAL</span></div>
-              <img id="prev-foto-doc" class="doc-preview-img"
-                style="display:none;">
-              <div id="ph-foto-doc">
-                <span class="foto-placeholder-icon"><i
-                    class="fa-solid fa-address-card"></i></span>
-                <div class="foto-placeholder-text">Frente do RG, CPF (Caso seja
-                  estrangeiro CRNM)</div>
-              </div>
-              <div class="foto-btns">
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-foto-doc').click()">📁
-                  Arquivo</button>
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-cam-doc').click()">📷
-                  Câmera</button>
-              </div>
-              <input type="file" id="inp-foto-doc" accept="image/*"
-                style="display:none"
-                onchange="previewFoto(this,'prev-foto-doc','ph-foto-doc','box-foto-doc','doc')">
-              <input type="file" id="inp-cam-doc" accept="image/*"
-                capture="environment" style="display:none"
-                onchange="previewFoto(this,'prev-foto-doc','ph-foto-doc','box-foto-doc','doc')">
-            </div>
-          </div>
-        </div>
-
-        <!-- DADOS PESSOAIS -->
-        <div class="section-card">
-          <div class="section-title">
-            <div class="icon-wrap"><i class="fa-solid fa-user"></i></div>Dados
-            Pessoais<div class="section-check">✓</div>
-          </div>
-
-          <label class="field-label">Nome Completo <span
-              class="req">*</span></label>
-          <input type="text" id="nome" placeholder="Seu nome completo"
-            oninput="bloquearNumeros(this); validarNome(this)"
-            autocomplete="name">
-
-          <div class="form-row col-2">
-            <div id="wrapper-rg" class="somente-membro">
-              <label class="field-label" id="label-rg">RG</label>
-              <input type="text" id="rg" placeholder="0000000"
-                oninput="bloquearLetras(this); validarRG(this);" maxlength="15"
-                inputmode="numeric">
-              <div class="hint" id="hint-rg"></div>
-            </div>
-            <div>
-              <label class="field-label" id="label-cpf">CPF <span
-                  class="req">*</span></label>
-              <select id="tipo_cpf" onchange="toggleCPF()"
-                style="width:100%;margin-top:2px;">
-                <option value="br" selected>Brasileiro (CPF)</option>
-                <option value="estrangeiro">Pessoa estrangeira (CRNM)</option>
-              </select>
-              <input type="text" id="cpf" maxlength="14"
-                oninput="maskCPF(this);validarCPF(this)"
-                placeholder="000.000.000-00" inputmode="numeric">
-              <div class="hint" id="hint-cpf"></div>
+            <div class="hint" id="hint-batismo" style="margin-top:0.5rem;color:var(--muted);font-size:0.8rem;">
+              Esta informação é sensível e será tratada com confidencialidade, acessível apenas à secretaria e pastoral autorizada.
             </div>
           </div>
 
-          <div class="form-row col-3">
-            <div class="somente-membro">
-              <label class="field-label">Nascimento</label>
-              <input type="date" id="dataNasc" onchange="calcIdade()">
-            </div>
-            <div class="somente-membro">
-              <label class="field-label">Idade</label>
-              <input type="number" id="idade" placeholder="—" min="0" max="120"
-                readonly style="cursor:default;">
-              <div class="hint" id="hint">Calculada automaticamente</div>
-            </div>
-            <div class="somente-membro">
-              <label class="field-label">Sexo</label>
-              <div class="radio-pills" style="margin-top:10px;">
-                <div class="radio-pill"><input type="radio" name="sexo"
-                    id="sexo-m" value="M" checked><label
-                    for="sexo-m"><i class="fa-solid fa-mars-stroke-up"></i>
-                    Masc.</label></div>
-                <div class="radio-pill"><input type="radio" name="sexo"
-                    id="sexo-f" value="F"><label for="sexo-f"><i
-                      class="fa-solid fa-venus"></i>
-                    Fem.</label></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row col-3">
-            <div class="somente-membro">
-              <label class="field-label">Tipo Sanguíneo</label>
-              <select id="tipo_sanguineo">
-                <option value>—
-                  Selecione</option>
-                <option>A+</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B-</option>
-                <option>AB+</option>
-                <option>AB-</option>
-                <option>O+</option>
-                <option>O-</option>
-              </select>
-            </div>
-            <div class="somente-membro">
-              <label class="field-label">Escolaridade</label>
-              <select id="escolaridade" onchange="toggleDiploma()">
-                <option value>— Selecione</option>
-                <option>Fundamental Incompleto</option>
-                <option>Fundamental
-                  Completo</option>
-                <option>Médio Incompleto</option>
-                <option>Médio Completo</option>
-                <option>Superior Incompleto</option>
-                <option>Superior
-                  Completo</option>
-                <option>Pós-Graduação</option>
-              </select>
-            </div>
-            <div>
-              <label class="field-label">Estado Civil</label>
-              <select id="estadoCivil" onchange="toggleConjuge()">
-                <option value>— Selecione</option>
-                <option>Solteiro(a)</option>
-                <option>Casado(a)</option>
-                <option>Divorciado(a)</option>
-                <option>Viúvo(a)</option>
-                <option>União
-                  Estável</option>
-              </select>
-            </div>
-          </div>
-
-          <div id="campo-conjuge" class="somente-membro" style="display:none;">
-            <div class="form-row col-2" style="margin-top:0.5rem;">
-              <div><label class="field-label">Nome do Cônjuge</label><input
-                  type="text" id="conjuge_nome"
-                  placeholder="Nome completo"></div>
-              <div><label class="field-label">Data do Casamento</label><input
-                  type="date" id="dataCasamento"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DOCUMENTOS -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap"><i
-                class="fa-solid fa-file-lines"></i></div>Documentos
-            <div class="section-check">✓</div>
-          </div>
-          <div class="foto-grid">
-            <div class="foto-box" id="box-certidao-nasc">
-              <div class="foto-check">✓</div>
-              <div class="foto-label-title">Certidão de Nascimento</div>
-              <img id="prev-certidao-nasc" class="doc-preview-img"
-                style="display:none;">
-              <div id="ph-certidao-nasc">
-                <span class="foto-placeholder-icon"><i
-                    class="fa-solid fa-file-image"></i></span>
-                <div class="foto-placeholder-text">Foto ou scan da
-                  certidão</div>
-              </div>
-              <div class="foto-btns">
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-certidao-nasc').click()"><i
-                    class="fa-solid fa-folder"></i>
-                  Arquivo</button>
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-cam-certidao-nasc').click()"><i
-                    class="fa-solid fa-camera"></i>
-                  Câmera</button>
-              </div>
-              <input type="file" id="inp-certidao-nasc"
-                accept="image/*,application/pdf" style="display:none"
-                onchange="previewFoto(this,'prev-certidao-nasc','ph-certidao-nasc','box-certidao-nasc','doc')">
-              <input type="file" id="inp-cam-certidao-nasc" accept="image/*"
-                capture="environment" style="display:none"
-                onchange="previewFoto(this,'prev-certidao-nasc','ph-certidao-nasc','box-certidao-nasc','doc')">
-            </div>
-
-            <div class="foto-box opcional" id="box-certidao-cas"
-              style="display:none;">
-              <div class="foto-check">✓</div>
-              <div class="foto-label-title">Certidão de Casamento</div>
-              <img id="prev-certidao-cas" class="doc-preview-img"
-                style="display:none;">
-              <div id="ph-certidao-cas">
-                <span class="foto-placeholder-icon"><i
-                    class="fa-solid fa-ring"></i></span>
-                <div class="foto-placeholder-text">Foto ou scan da
-                  certidão</div>
-              </div>
-              <div class="foto-btns">
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-certidao-cas').click()">📁
-                  Arquivo</button>
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-cam-certidao-cas').click()">📷
-                  Câmera</button>
-              </div>
-              <input type="file" id="inp-certidao-cas"
-                accept="image/*,application/pdf" style="display:none"
-                onchange="previewFoto(this,'prev-certidao-cas','ph-certidao-cas','box-certidao-cas','doc')">
-              <input type="file" id="inp-cam-certidao-cas" accept="image/*"
-                capture="environment" style="display:none"
-                onchange="previewFoto(this,'prev-certidao-cas','ph-certidao-cas','box-certidao-cas','doc')">
-            </div>
-
-            <div class="foto-box" id="box-diploma" style="display:none;">
-              <div class="foto-check">✓</div>
-              <div class="foto-label-title">Diploma / Certificado</div>
-              <img id="prev-diploma" class="doc-preview-img"
-                style="display:none;">
-              <div id="ph-diploma">
-                <span class="foto-placeholder-icon">🎓</span>
-                <div class="foto-placeholder-text">Diploma ou certificado de
-                  escolaridade</div>
-              </div>
-              <div class="foto-btns">
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-diploma').click()">📁
-                  Arquivo</button>
-                <button type="button" class="btn-foto"
-                  onclick="document.getElementById('inp-cam-diploma').click()">📷
-                  Câmera</button>
-              </div>
-              <input type="file" id="inp-diploma"
-                accept="image/*,application/pdf" style="display:none"
-                onchange="previewFoto(this,'prev-diploma','ph-diploma','box-diploma','doc')">
-              <input type="file" id="inp-cam-diploma" accept="image/*"
-                capture="environment" style="display:none"
-                onchange="previewFoto(this,'prev-diploma','ph-diploma','box-diploma','doc')">
-            </div>
-          </div>
-        </div>
-
-        <!-- ENDEREÇO -->
-        <div class="section-card">
-          <div class="section-title">
-            <div class="icon-wrap"><i
-                class="fa-solid fa-map-marker-alt"></i></div>Endereço e
-            Contato<div class="section-check">✓</div>
-          </div>
-
-          <div class="form-row col-2 somente-membro">
-            <div>
-              <label class="field-label">CEP</label>
-              <input type="text" id="cep" maxlength="9" oninput="maskCEP(this)"
-                onblur="buscarCEP()"
-                placeholder="00000-000" inputmode="numeric">
-              <div class="cep-loading" id="cep-loading">🔍 Buscando
-                endereço…</div>
-              <div class="hint" id="hint-cep"></div>
-            </div>
-            <div>
-              <label class="field-label">Bairro</label>
-              <input type="text" id="bairro" placeholder="Bairro">
-            </div>
-          </div>
-
-          <label class="field-label somente-membro">Endereço completo</label>
-          <input type="text" id="endereco" class="somente-membro"
-            placeholder="Rua, número, complemento">
-
-          <div class="form-row col-2 somente-membro">
-            <div
-              style="display: grid; grid-template-columns: 80px 1fr; gap: 8px;">
-              <div>
-                <label class="field-label">UF</label>
-                <select id="sel_estado" style="width:100%;margin-top:2px;"
-                  onchange="carregarCidades(this.value)">
-                  <option value>UF</option>
-                </select>
-              </div>
-              <div>
-                <label class="field-label">Cidade</label>
-                <select id="sel_cidade" style="width:100%;margin-top:2px;">
-                  <option value>Selecione</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label class="field-label">Fone Residencial</label>
-              <input type="text" id="fone_res" oninput="maskPhone(this)"
-                onblur="validarTelefone(this,'hint-fone-res')"
-                placeholder="(48) 0000-0000" inputmode="tel">
-              <div class="hint" id="hint-fone-res"></div>
-            </div>
-          </div>
-
-          <div class="form-row col-2">
-            <div class="somente-membro">
-              <label class="field-label">Fone Comercial</label>
-              <input type="text" id="fone_com" oninput="maskPhone(this)"
-                onblur="validarTelefone(this,'hint-fone-com')"
-                placeholder="(48) 0000-0000" inputmode="tel">
-              <div class="hint" id="hint-fone-com"></div>
-            </div>
-            <div>
-              <label class="field-label">Celular / WhatsApp <span
-                  class="req">*</span></label>
-              <input type="text" id="celular" oninput="maskPhone(this)"
-                onblur="validarTelefone(this,'hint-celular',true)"
-                placeholder="(48) 00000-0000" inputmode="tel">
-              <div class="hint" id="hint-celular"></div>
-            </div>
-          </div>
-
-          <label class="field-label somente-membro">E-mail</label>
-          <input type="email" id="email" class="somente-membro" placeholder="seu@email.com"
-            autocomplete="email" inputmode="email">
-
-          <!-- COMPROVANTE DE ENDEREÇO (OPCIONAL) -->
-          <label class="field-label somente-membro" style="margin-top:1.2rem;">Comprovante de
-            Endereço <span
-              style="font-size:0.68rem;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;">(opcional)</span></label>
-          <div class="foto-box opcional somente-membro" id="box-comprovante"
-            style="text-align:left;display:flex;align-items:center;gap:12px;padding:0.9rem 1rem;">
-            <div class="foto-check"
-              style="position:static;flex-shrink:0;">✓</div>
-            <div style="flex:1;">
-              <div class="foto-label-title" style="margin-bottom:0;">Conta de
-                luz, água ou telefone</div>
-              <div style="font-size:0.72rem;color:var(--muted);">Recente
-                (últimos 3 meses)</div>
-            </div>
-            <img id="prev-comprovante"
-              style="width:50px;height:50px;object-fit:cover;border-radius:6px;display:none;">
-            <div class="foto-btns" style="flex-direction:column;gap:4px;">
-              <button type="button" class="btn-foto"
-                onclick="document.getElementById('inp-comprovante').click()">📁</button>
-              <button type="button" class="btn-foto"
-                onclick="document.getElementById('inp-cam-comprovante').click()">📷</button>
-            </div>
-            <input type="file" id="inp-comprovante"
-              accept="image/*,application/pdf" style="display:none"
-              onchange="previewFotoComprovante(this)">
-            <input type="file" id="inp-cam-comprovante" accept="image/*"
-              capture="environment" style="display:none"
-              onchange="previewFotoComprovante(this)">
-          </div>
-        </div>
-
-        <!-- PROFISSIONAL -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap">💼</div>Dados
-            Profissionais<div class="section-check">✓</div>
-          </div>
-          <label class="field-label">Ocupação Atual</label>
-          <input type="text" id="ocupacao"
-            placeholder="Ex: Professor, Comerciante, Aposentado…">
-          <label class="field-label">Local de Trabalho / Empresa</label>
-          <input type="text" id="empresa"
-            placeholder="Nome da empresa ou instituição">
-        </div>
-
-        <!-- IGREJA -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap">✝️</div>Dados da
-            Igreja<div class="section-check">✓</div>
-          </div>
-          <label class="field-label">Forma de Recebimento</label>
-          <select id="forma_recebimento">
-            <option value>—
-              Selecione</option>
-            <option>Batismo nas
-              Águas</option>
-            <option>Transferência</option>
-            <option>Aclamação</option>
-            <option>Reconciliação</option>
-          </select>
-          <div class="form-row col-2">
-            <div><label class="field-label">Setor</label><select id="setor_igreja" onchange="sincronizarCongregacaoComSetor()">
-                <option value="">Selecione o setor</option>
-                <option>Setor 01: Ponte do Imaruim (Sede)</option>
-                <option>Setor 02: Jardim Eldorado</option>
-                <option>Setor 03: Caminho Novo</option>
-                <option>Setor 04: Guarda do Cubatão</option>
-                <option>Setor 05: Barra do Aririú</option>
-                <option>Setor 06: Alto Aririú</option>
-                <option>Setor 07: Rio Grande</option>
-                <option>Setor 08: Pacheco</option>
-                <option>Setor 09: Bela Vista</option>
-                <option>Setor 10: Madri</option>
-                <option>Setor 11: São Sebastião</option>
-                <option>Setor 12: Pagani</option>
-                <option>Setor 13: Passa Vinte</option>
-                <option>Setor 14: Nova Esperança / Brejaru</option>
-                <option>Setor 15: Pinheira (Baixada do Maciambu e praias)</option>
-                <option>Setor 16: Enseada de Brito</option>
-                <option>Setor 17: Pedra Branca</option>
-                <option>Setor 18: Aririú da Formiga / Loteamentos Recentes</option>
-              </select></div>
-            <div><label class="field-label">Congregação</label><input
-                type="text" id="congregacao_igreja"
-                placeholder="Preenchida pelo setor escolhido" readonly></div>
-          </div>
-          <div class="form-row col-3">
-            <div><label class="field-label">Igreja Anterior</label><input
-                type="text" id="igreja_anterior"
-                placeholder="Nome"></div>
-            <div><label class="field-label">Cidade</label><input type="text"
-                id="igreja_cidade" placeholder="Cidade">
-            </div>
-            <div><label class="field-label">Pastor Anterior</label><input
-                type="text" id="igreja_pastor"
-                placeholder="Nome"></div>
-          </div>
-          <div class="form-row col-3">
-            <div><label class="field-label">Batismo nas Águas</label><input
-                type="date" id="data_batismo_aguas"></div>
-            <div><label class="field-label">Batismo Espírito Santo</label><input
-                type="date" id="data_batismo_es"></div>
-            <div><label class="field-label">Data Aprovação</label><input
-                type="date" id="data_aprovacao"></div>
-          </div>
-        </div>
-
-        <!-- CARGOS -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap">🎖️</div>Cargo e
-            Funções<div class="section-check">✓</div>
-          </div>
-          <label class="field-label">Cargo Principal</label>
-          <input type="text" id="cargo_principal"
-            placeholder="Ex: Diácono, Presbítero, Líder…">
-          <label class="field-label">Outras Funções</label>
-          <textarea id="outras_funcoes"
-            placeholder="Descreva outras funções exercidas na igreja…"></textarea>
-        </div>
-
-        <!-- FAMÍLIA -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap">👨‍👩‍👧</div>Família<div
-              class="section-check">✓</div>
-          </div>
-          <label class="field-label">Quantidade de Filhos</label>
-          <input type="number" id="qtd_filhos" min="0" max="30" placeholder="0"
-            inputmode="numeric"
-            style="max-width:100px;">
-          <div
-            style="margin-top:1.2rem;font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">
-            Demais
-            integrantes da casa</div>
-          <div class="dep-row">
-            <div>
-              <div class="dep-num">Integrante
-                1</div><input type="text" id="nome_dep1"
-                placeholder="Nome completo">
-            </div>
-            <div>
-              <div class="dep-num">Parentesco</div><input type="text"
-                id="parentesco_dep1" placeholder="Ex: Filho(a)">
-            </div>
-          </div>
-          <div class="dep-row">
-            <div>
-              <div class="dep-num">Integrante
-                2</div><input type="text" id="nome_dep2"
-                placeholder="Nome completo">
-            </div>
-            <div>
-              <div class="dep-num">Parentesco</div><input type="text"
-                id="parentesco_dep2" placeholder="Ex: Mãe">
-            </div>
-          </div>
-          <div class="dep-row">
-            <div>
-              <div class="dep-num">Integrante
-                3</div><input type="text" id="nome_dep3"
-                placeholder="Nome completo">
-            </div>
-            <div>
-              <div class="dep-num">Parentesco</div><input type="text"
-                id="parentesco_dep3" placeholder="Ex: Pai">
-            </div>
-          </div>
-        </div>
-
-        <!-- TALENTOS -->
-        <div class="section-card somente-membro">
-          <div class="section-title">
-            <div class="icon-wrap">🌟</div>Talentos e
-            Recursos<div class="section-check">✓</div>
-          </div>
-          <label class="field-label">Talentos e Habilidades</label>
-          <textarea id="talentos"
-            placeholder="Ex: Canto, violão, pregação, ensino, administração…"></textarea>
-          <div class="form-row col-2" style="margin-top:0.8rem;">
-            <div>
-              <label class="field-label">Tem computador em casa?</label>
-              <div class="radio-pills" style="margin-top:8px;">
-                <div class="radio-pill"><input type="radio"
-                    name="tem_computador" id="comp-sim" value="Sim"
-                    checked><label
-                    for="comp-sim">✓ Sim</label></div>
-                <div class="radio-pill"><input type="radio"
-                    name="tem_computador" id="comp-nao" value="Não"><label
-                    for="comp-nao">✗ Não</label></div>
-              </div>
-            </div>
-            <div>
-              <label class="field-label">Acesso à internet?</label>
-              <div class="radio-pills" style="margin-top:8px;">
-                <div class="radio-pill"><input type="radio" name="tem_internet"
-                    id="inet-sim" value="Sim" checked><label
-                    for="inet-sim">✓
-                    Sim</label></div>
-                <div class="radio-pill"><input type="radio" name="tem_internet"
-                    id="inet-nao" value="Não"><label
-                    for="inet-nao">✗
-                    Não</label></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ASSINATURA DIGITAL -->
-        <div class="section-card" style="margin-bottom:5rem;">
-          <div class="section-title">
-            <div class="icon-wrap">✍️</div>Assinatura
-            Digital<div class="section-check">✓</div>
-          </div>
-
-          <div class="declaracao">
-            <strong>Declaração do Cadastro</strong>
-            Declaro que as informações fornecidas neste cadastro são verdadeiras
-            e completas.
-            Comprometo-me a comunicar qualquer alteração ao secretariado da
-            igreja.
-          </div>
-
-          <label class="field-label">Assine abaixo com o dedo ou mouse <span
-              class="req">*</span></label>
-          <div class="assinatura-wrap" id="assinatura-wrap">
-            <canvas id="canvas-assinatura" width="680" height="160"></canvas>
-            <div class="assinatura-controles">
-              <span class="assinatura-hint" id="assinatura-hint">✍️ Assine no
-                espaço acima</span>
-              <button type="button" class="btn-limpar-assin"
-                onclick="limparAssinatura()">🗑 Limpar</button>
-            </div>
-          </div>
-          <div class="hint" id="hint-assinatura"></div>
-          <div class="privacy-final-box" id="privacy-final-box">
+          <!-- CONSENTIMENTO FINAL -->
+          <div class="section-card privacy-final-box" id="privacy-final-box">
             <div class="privacy-final-heading">
               <i class="fa-solid fa-shield-halved"></i>
               <div>
@@ -765,7 +127,6 @@
             </label>
             <div class="hint" id="hint-privacy-final" aria-live="polite"></div>
           </div>
-        </div>
 
         </form>
       </main>
@@ -773,14 +134,6 @@
       <!-- BOTÃO ENVIAR -->
       <div class="submit-wrap cadastro-flow-hidden">
         <div class="inner">
-          <button class="btn-step btn-step-back" id="btn-step-back" type="button">
-            <i class="fa-solid fa-arrow-left"></i>
-            Voltar
-          </button>
-          <button class="btn-step btn-step-next" id="btn-step-next" type="button">
-            Continuar
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
           <button class="btn-submit" id="btn-salvar" type="button" onclick="salvarMembro()" disabled>
             ✝ Enviar Cadastro
           </button>
@@ -790,9 +143,9 @@
     </div><!-- fim app -->
 
     <div id="toast"></div>
-  <!-- Sistema de Proteção -->
-  <script src="../js/supabase-client.js"></script>
-  <script src="../js/cadastro.js"></script>
+    <!-- Sistema de Proteção -->
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/cadastro.js"></script>
 
   </body>
 

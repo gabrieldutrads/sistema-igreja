@@ -4,8 +4,7 @@
 
 create extension if not exists pgcrypto;
 
-grant usage on schema public to anon, authenticated;
-grant usage on schema extensions to anon, authenticated;
+grant usage on schema public to anon, authenticated;  
 revoke create on schema public from public;
 
 create table if not exists public.member_accounts (

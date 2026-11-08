@@ -795,9 +795,9 @@
 
   async function abrirCadastro() {
     try {
-      // Gera token de cadastro automaticamente
+      // Gera token de cadastro automaticamente (30 minutos de validade)
       const { data, error } = await db.rpc('generate_registration_token', {
-        p_duration_hours: 2,
+        p_duration_minutes: 30,
         p_notes: 'Link direto do admin'
       });
 
@@ -3301,7 +3301,7 @@
     
     try {
       const { data, error } = await db.rpc('generate_registration_token', {
-        p_duration_hours: 2,
+        p_duration_minutes: 30,
         p_notes: observacao || null
       });
 

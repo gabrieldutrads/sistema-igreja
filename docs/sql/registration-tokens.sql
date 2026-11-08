@@ -1,5 +1,5 @@
 -- Sistema de Tokens Temporários para Cadastro
--- Permite gerar links de cadastro com expiração de 2 horas
+-- Permite gerar links de cadastro com expiração de 30 minutos
 
 -- =====================================
 -- Tabela de Tokens de Cadastro
@@ -37,7 +37,7 @@ CREATE OR REPLACE FUNCTION generate_registration_token(
   p_notes TEXT DEFAULT NULL,
   p_recipient_name TEXT DEFAULT NULL,
   p_recipient_contact TEXT DEFAULT NULL,
-  p_duration_hours INTEGER DEFAULT 2
+  p_duration_minutes INTEGER DEFAULT 30
 )
 RETURNS TABLE(
   token TEXT,
@@ -70,8 +70,8 @@ BEGIN
   v_token := regexp_replace(v_token, '[^a-zA-Z0-9]', '', 'g');
   v_token := substring(v_token, 1, 64);
 
-  -- Define expiração
-  v_expires := NOW() + (p_duration_hours || ' hours')::INTERVAL;
+  -- Define expiração (padrão: 30 minutos)
+  v_expires := NOW() + (p_duration_minutes || ' minutes')::INTERVAL;
 
   -- Insere token
   INSERT INTO registration_tokens (
@@ -95,14 +95,14 @@ BEGIN
     )
   );
 
-  -- URL base (ajuste conforme seu domínio)
-  v_base_url := 'https://seu-dominio.vercel.app';
+  -- URL base (deve ser configurada via variável de ambiente ou configuração)
+  v_base_url := COALESCE(current_setting('app.registration_base_url', true), 'https://seu-dominio.vercel.app');
 
   -- Retorna informações do token
-  RETURN QUERY SELECT 
+  RETURN QUERY SELECT
     v_token,
     v_expires,
-    v_base_url || '/cadastro.html?token=' || v_token AS registration_url;
+    v_base_url || '/pages/cadastro.html?token=' || v_token AS registration_url;
 END;
 $$;
 
@@ -136,7 +136,7 @@ BEGIN
 
   -- Token não encontrado
   IF NOT FOUND THEN
-    RETURN QUERY SELECT 
+    RETURN QUERY SELECT
       FALSE,
       FALSE,
       FALSE,
@@ -149,7 +149,7 @@ BEGIN
 
   -- Token já usado
   IF v_token.used_at IS NOT NULL THEN
-    RETURN QUERY SELECT 
+    RETURN QUERY SELECT
       FALSE,
       FALSE,
       TRUE,
@@ -167,7 +167,7 @@ BEGIN
     SET is_active = FALSE
     WHERE id = v_token.id;
 
-    RETURN QUERY SELECT 
+    RETURN QUERY SELECT
       FALSE,
       TRUE,
       FALSE,
@@ -179,7 +179,7 @@ BEGIN
   END IF;
 
   -- Token válido
-  RETURN QUERY SELECT 
+  RETURN QUERY SELECT
     TRUE,
     FALSE,
     FALSE,
@@ -207,7 +207,7 @@ DECLARE
   v_updated BOOLEAN;
 BEGIN
   UPDATE registration_tokens
-  SET 
+  SET
     used_at = NOW(),
     used_by_email = p_email,
     member_id = p_member_id,
@@ -265,17 +265,17 @@ BEGIN
 
   -- Retorna tokens
   RETURN QUERY
-  SELECT 
+  SELECT
     rt.id,
     rt.token,
     rt.created_by_email,
     rt.created_by_role,
     rt.expires_at,
     rt.used_at,
-    rt.used_by_email,
+    rt.use_by_email,
     rt.is_active,
     (NOW() > rt.expires_at) AS is_expired,
-    CASE 
+    CASE
       WHEN NOW() < rt.expires_at THEN EXTRACT(EPOCH FROM (rt.expires_at - NOW()))::INTEGER
       ELSE 0
     END AS time_remaining_seconds,
@@ -284,7 +284,7 @@ BEGIN
     rt.recipient_info->>'contact' AS recipient_contact,
     rt.created_at
   FROM registration_tokens rt
-  WHERE 
+  WHERE
     (p_show_all = TRUE OR rt.created_by = p_user_id)
     AND (p_show_all = TRUE OR rt.created_at > NOW() - INTERVAL '7 days')
   ORDER BY rt.created_at DESC;
@@ -320,7 +320,7 @@ BEGIN
 
   -- Revoga token
   UPDATE registration_tokens
-  SET 
+  SET
     is_active = FALSE,
     updated_at = NOW()
   WHERE id = p_token_id
@@ -391,8 +391,8 @@ GRANT EXECUTE ON FUNCTION cleanup_expired_tokens TO authenticated;
 -- Comentários
 -- =====================================
 
-COMMENT ON TABLE registration_tokens IS 'Tokens temporários para cadastro de membros com expiração de 2 horas';
-COMMENT ON FUNCTION generate_registration_token IS 'Gera token temporário de cadastro (2h de validade)';
+COMMENT ON TABLE registration_tokens IS 'Tokens temporários para cadastro de membros com expiração de 30 minutos';
+COMMENT ON FUNCTION generate_registration_token IS 'Gera token temporário de cadastro (30 min de validade)';
 COMMENT ON FUNCTION validate_registration_token IS 'Valida token e retorna tempo restante';
 COMMENT ON FUNCTION mark_token_as_used IS 'Marca token como usado após cadastro concluído';
 COMMENT ON FUNCTION list_registration_tokens IS 'Lista tokens criados pelo usuário';
@@ -406,7 +406,7 @@ DO $$
 BEGIN
   RAISE NOTICE '✅ Sistema de tokens temporários criado!';
   RAISE NOTICE '📋 Recursos disponíveis:';
-  RAISE NOTICE '   - Tokens com expiração de 2 horas';
+  RAISE NOTICE '   - Tokens com expiração de 30 minutos';
   RAISE NOTICE '   - Validação em tempo real';
   RAISE NOTICE '   - Controle de uso único';
   RAISE NOTICE '   - Limpeza automática';

@@ -68,7 +68,7 @@
         p_notes: notes || null,
         p_recipient_name: recipientName,
         p_recipient_contact: recipientContact,
-        p_duration_hours: 2
+        p_duration_minutes: 30
       });
 
       if (error) throw error;
